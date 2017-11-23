@@ -35,3 +35,13 @@ foreach ($compID as $theKey) {
     $compIntoDB = $pdo->prepare($sql4);
     $compIntoDB->execute (array(':company_id' => $theKey['id'], 'customer_company' => $theKey['company_name']));
 }
+
+$theGetID = $_GET['company_id'];
+
+$sql5 = "SELECT * FROM user WHERE company_id = $theGetID";
+$getByID = $pdo->prepare($sql5);
+$getByID->execute();
+$userByID = $getByID->fetchAll();
+$json = json_encode($userByID, JSON_PRETTY_PRINT);
+
+echo $json;
